@@ -5,7 +5,7 @@ import {
 } from "../controllers/expenseControllers.js";
 import {
   addIncome,
-  getIncome
+  getIncome,updateIncome,deleteIncome
 } from "../controllers/incomeController.js";
 
 
@@ -25,6 +25,12 @@ router.delete("/expense/:id",deleteExpense);
 
 router.post("/income",addIncome);
 router.get("/income/:userId",getIncome);
+router.put("/income/:id", updateIncome);
+
+router.delete(
+  "/income/:id",
+  deleteIncome
+);
 router.put("/expense/:id",updateExpense)
 
 export default router;
