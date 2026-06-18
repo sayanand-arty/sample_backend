@@ -75,3 +75,38 @@ export const deleteExpense = async (req, res) => {
   }
 
 };
+export const updateExpense = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const expense =
+  await Expense.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      returnDocument: "after",
+      runValidators: true
+    }
+  );
+
+    res.status(200).json({
+      success: true,
+      message: "Expense Updated",
+      expense
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error"
+    });
+
+  }
+
+};
