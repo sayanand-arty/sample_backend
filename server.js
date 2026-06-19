@@ -1,17 +1,23 @@
+import dotenv from 'dotenv';
 import express from 'express';
+import cors from 'cors';
 import router from './router/router.js';
-import cors from 'cors'
 import connectDB from './db/db.js';
+import errorHandler from './middlewares/errorHandler.js';
 
-const app = express()
-const PORT = 3000;
+dotenv.config();
 
-app.use(cors())
-app.use(express.json())
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use('/api', router)
+app.use(cors());
+app.use(express.json());
+
+app.use('/api', router);
+app.use(errorHandler);
+
 connectDB();
 
-app.listen(3000, ()=>{
-    console.log('running http://localhost:3000')
+app.listen(PORT, () => {
+  console.log(`running http://localhost:${PORT}`);
 });

@@ -1,12 +1,19 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const connectDB = async()=>{
-    try {
-       const connection = await mongoose.connect('mongodb://localhost:27017/tracker')
-    } catch (error) {
-        console.log(error);
-        
-        
-    }
-}
+dotenv.config();
+
+const connectDB = async () => {
+  try {
+    const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/tracker';
+    await mongoose.connect(uri, {
+      autoIndex: false,
+    });
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+};
+
 export default connectDB;
